@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OptionGroup from "./OptionGroup";
+import AnswersList from "./AnswersList";
 
 function Survey() {
   const [open, setOpen] = useState(false); 
@@ -10,6 +11,8 @@ function Survey() {
     username: "",
     email: "",
   })
+
+  const [answers, setAnswer] = useState([]);
 
   function handleChange(event) {
     const {name, value} = event.target;
@@ -29,6 +32,7 @@ function Survey() {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(formData);
+    setAnswer((prev) => [...prev, formData]);
     setFormData({
     colour: "",
     timeSpent: [],
@@ -58,7 +62,7 @@ function Survey() {
     <main className="survey">
       <section className={`survey__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
-        {/* answers should go here */}
+        <AnswersList answersList = {answers} />
       </section>
       <section className="survey__form">
         <form className="form" onSubmit={handleSubmit}>
